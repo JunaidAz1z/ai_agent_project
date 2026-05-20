@@ -1,0 +1,10 @@
+# Ignore virtual environment
+venv
+
+# Ignore environment variables (secret keys)
+.env
+
+# Optional - extra safety
+__pycache__/
+*.pyc
+Requests_Module.py
