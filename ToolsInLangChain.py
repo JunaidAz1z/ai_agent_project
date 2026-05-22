@@ -246,62 +246,62 @@
 #Ex4 
 
 
-# from langchain_groq import ChatGroq 
-# from langchain_core.tools import tool
-# from dotenv import load_dotenv
+from langchain_groq import ChatGroq 
+from langchain_core.tools import tool
+from dotenv import load_dotenv
 
-# load_dotenv()
-# llm = ChatGroq(model="llama-3.3-70b-versatile")
+load_dotenv()
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 
-# @tool
-# def get_weather(city: str) -> str:
-#     """Get weather for a city."""
-#     weather = {
-#         "karachi": "32C Humid ",
-#         "lahore": "35C Sunny ",
-#         "islamabad": "28C Cloudy "
-#     }
-#     return weather.get(city.lower(), "City not found")
+@tool
+def get_weather(city: str) -> str:
+    """Get weather for a city."""
+    weather = {
+        "karachi": "32C Humid ",
+        "lahore": "35C Sunny ",
+        "islamabad": "28C Cloudy "
+    }
+    return weather.get(city.lower(), "City not found")
 
-# @tool
-# def get_time(city: str) -> str:
-#     """Get current time for a city."""
-#     times = {
-#         "karachi": "3:00 PM",
-#         "lahore": "3:00 PM",
-#         "islamabad": "3:00 PM"
-#     }
-#     return times.get(city.lower(), "City not found")
+@tool
+def get_time(city: str) -> str:
+    """Get current time for a city."""
+    times = {
+        "karachi": "3:00 PM",
+        "lahore": "3:00 PM",
+        "islamabad": "3:00 PM"
+    }
+    return times.get(city.lower(), "City not found")
 
-# @tool
-# def get_population(city: str) -> str:
-#     """Get population of a city."""
-#     population = {
-#         "karachi": "16 million",
-#         "lahore": "13 million",
-#         "islamabad": "1.1 million"
-#     }
-#     return population.get(city.lower(), "City not found")
+@tool
+def get_population(city: str) -> str:
+    """Get population of a city."""
+    population = {
+        "karachi": "16 million",
+        "lahore": "13 million",
+        "islamabad": "1.1 million"
+    }
+    return population.get(city.lower(), "City not found")
 
-# tools = [get_weather, get_time, get_population]
-# tools_dict = {
-#     "get_weather": get_weather,
-#     "get_time": get_time,
-#     "get_population": get_population
-# }
+tools = [get_weather, get_time, get_population]
+tools_dict = {
+    "get_weather": get_weather,
+    "get_time": get_time,
+    "get_population": get_population
+}
 
-# llm_with_tools = llm.bind_tools(tools)
-# response = llm_with_tools.invoke("Tell me weather, time and population of Karachi")
+llm_with_tools = llm.bind_tools(tools)
+response = llm_with_tools.invoke("Tell me weather, time and population of Karachi")
 
-# if response.tool_calls:
-#     for tool_call in response.tool_calls:
-#         tool_name = tool_call["name"]
-#         tool_args = tool_call["args"]
-#         result = tools_dict[tool_name].invoke(tool_args)
-#         print(f"Tool:   {tool_name}")
-#         print(f"Args:   {tool_args}")
-#         print(f"Result: {result}")
-#         print("-" * 30)
-# else:
-#     print(response.content)
+if response.tool_calls:
+    for tool_call in response.tool_calls:
+        tool_name = tool_call["name"]
+        tool_args = tool_call["args"]
+        result = tools_dict[tool_name].invoke(tool_args)
+        print(f"Tool:   {tool_name}")
+        print(f"Args:   {tool_args}")
+        print(f"Result: {result}")
+        print("-" * 30)
+else:
+    print(response.content)
 
