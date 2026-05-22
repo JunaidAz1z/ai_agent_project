@@ -302,6 +302,7 @@ if response.tool_calls:
         print(f"Args:   {tool_args}")
         print(f"Result: {result}")
         print("-" * 30)
+        
 else:
     print(response.content)
 
