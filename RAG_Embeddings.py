@@ -159,9 +159,7 @@
 
 #     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-
 # def find_most_similar(query, sentences):
-
 #     query_vector = embeddings.embed_query(query)
 #     sentence_vector = embeddings.embed_documents(sentences)
 
@@ -169,13 +167,13 @@
 #     best_sentence = ""
 
 #     for i, sent_vector in enumerate(sentence_vector):
-#         score = similarity(query_vector, sent_vector)
-#         print(f"'{sentences[i]} {score:.4f}")
+#         score = similarity(sent_vector, query_vector)
+#         print(f"{sentences[i]} {score:.4f}")
 
 #         if score > best_score:
 #             best_score = score
 #             best_sentence = sentences[i]
-#     return best_score, best_sentence
+#     return best_sentence, best_score
 
 # query = "Where does Ali live?"
 # sentences = [
@@ -185,72 +183,12 @@
 #     "Ali wants to be AI Engineer"
 # ]
 
-# print(f"Query: {query}")
-# print("-" * 40)
-
+# print(f"Query : {query}")
+# print("-" * 30)
 # result, score = find_most_similar(query, sentences)
 
-# print("-" * 40)
-# print(f"Most Similar: {result}")
-# print(f"Score: {score:.4f}")
-
-from langchain_huggingface import HuggingFaceEmbeddings
-import numpy as np
-
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-
-def similarity(a, b):
-    a = np.array(a)
-    b = np.array(b)
-
-    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
-
-def find_most_similar(query, sentences):
-    query_vector = embeddings.embed_query(query)
-    sentence_vector = embeddings.embed_documents(sentences)
-
-    best_score = -1
-    best_sentence = ""
-
-    for i, sent_vector in enumerate(sentence_vector):
-        score = similarity(sent_vector, query_vector)
-        print(f"{sentences[i]} {score:.4f}")
-
-        if score > best_score:
-            best_score = score
-            best_sentence = sentences[i]
-    return best_sentence, best_score
-
-query = "Where does Ali live?"
-sentences = [
-    "Ali lives in Lahore",
-    "Ali is learning Python",
-    "Lahore is in Pakistan",
-    "Ali wants to be AI Engineer"
-]
-
-print(f"Query : {query}")
-print("-" * 30)
-result, score = find_most_similar(query, sentences)
-
-print("-" * 30)
-print(f"Most similar: {score:.4f}")
-
-
-# Ek function banao "find_most_similar":
-# - Input: query string, list of sentences
-# - Har sentence ki similarity nikalo query se
-# - Sabse zyada similar sentence return karo
-
-# Test karo:
-# query = "Where does Ali live?"
-# sentences = [
-#     "Ali lives in Lahore",
-#     "Ali is learning Python",
-#     "Lahore is in Pakistan",
-#     "Ali wants to be AI Engineer"
-# ]
-# Output: "Ali lives in Lahore"
+# print("-" * 30)
+# print(f"Most similar: {score:.4f}")
 
 
 
